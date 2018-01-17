@@ -1,0 +1,21 @@
+textarea {
+    overflow: scroll;
+    border: 0px;
+    resize: none;
+    background: #000;
+    color: #fff;
+    font: 14px Menlo, monospace
+}
+
+#bottombar {
+    background: #444;
+    color: #D9D9D4;
+    /* adjust these values so that the center the contents */
+    padding-left:90px;
+    padding-right: 90px;
+}
+
+#display {
+    overflow-wrap: break-word;
+    max-width: 650px;
+}
