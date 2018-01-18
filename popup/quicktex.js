@@ -20,16 +20,16 @@ function render(text) {
                 "\\RR": "\\mathbb{R}"
             },
         });
-    } catch(error) {
+    } catch(err) {
         // Display the error message instead of leaving a blank field.
         while(display.lastChild) {
             // Remove any text that's already in the display box.
             display.removeChild(display.lastChild);
         }
-        var errorMessage = document.createTextNode(error.message);
+        var message = document.createTextNode(err.message);
         var span = document.createElement("span");
-        span.appendChild(errorMessage);
-        demoOutput.appendChild(span);
+        span.appendChild(message);
+        display.appendChild(span);
         span.setAttribute("class", "errorMessage");
     }
 }
