@@ -26,12 +26,29 @@ function render(text) {
             // Remove any text that's already in the display box.
             display.removeChild(display.lastChild);
         }
-        var message = document.createTextNode(err.message);
+        var erm = err.message.replace("KaTeX", "QuickTeX");
+        var message = document.createTextNode(erm);
         var span = document.createElement("span");
         span.appendChild(message);
+        span.style.overflow = "hidden";
+        span.style.color = "#800000";
+        span.style.font = "10px Menlo, monospace";
         display.appendChild(span);
         span.setAttribute("class", "errorMessage");
     }
 }
 
-// https://github.com/mdn/webextensions-examples/blob/master/quicknote/popup/quicknote.js
+var copyTextareaBtn = document.querySelector('.copy');
+
+copyTextareaBtn.addEventListener('click', function(event) {
+  var copyTextarea = document.querySelector('.copy');
+  textInput.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+});

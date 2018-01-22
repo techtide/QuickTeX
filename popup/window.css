@@ -1,5 +1,6 @@
 textarea {
-    overflow: scroll;
+    overflow: auto;
+    overflow-wrap: break-word;
     border: 0px;
     resize: none;
     background: #000;

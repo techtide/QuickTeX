@@ -4,7 +4,9 @@
 
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="normalize.css"/>
         <link rel="stylesheet" href="window.css"/>
+        
         <script src="/katex/katex.min.js"></script>
         <link rel="stylesheet" href="/katex/katex.min.css"></head>
     </head>
@@ -13,10 +15,10 @@
         <textarea rows="7" cols="45" placeholder="Type LaTeX in here to render it automatically." id="entryfield"></textarea>  
         <div id="display">
         </div>
-        <div id="bottombar" >
+        <div id="bottombar">
             <button type="button" id="force-render">Force Render</button>
             <button type="button" id="help-button">Help</button>
-            <button type="button" id="copy-button">Copy</button>
+            <button type="button" id="copy-button" class="copy">Copy</button>
         </div>
         <script src="quicktex.js"></script> 
     </body>
