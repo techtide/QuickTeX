@@ -1,5 +1,8 @@
 var textInput = document.getElementById("entryfield");
 var display = document.getElementById("display");
+var storage = window.localStorage;
+
+textInput.value = storage.getItem("text");
 
 textInput.addEventListener("input", function() {
     // Check for input and render the text that has changed.
@@ -20,6 +23,8 @@ function render(text) {
                 "\\RR": "\\mathbb{R}"
             },
         });
+        storage.setItem("text", text);
+        console.log(storage.getItem("text"));
     } catch(err) {
         // Display the error message instead of leaving a blank field.
         while(display.lastChild) {
@@ -52,3 +57,26 @@ copyTextareaBtn.addEventListener('click', function(event) {
     console.log('Oops, unable to copy');
   }
 });
+
+function forget(storedSettings) {
+
+    /*
+    Convert from a string to a time.
+    The string is one of: "hour", "day", "week", "forever".
+    The time is given in milliseconds since the epoch.
+    */
+    function getSince(selectedSince) {
+      if (selectedSince === "forever") {
+        return 0;
+      }
+  
+      const times = {
+        hour: () => { return 1000 * 60 * 60 },
+        day: () => { return 1000 * 60 * 60 * 24 },
+        week: () => { return 1000 * 60 * 60 * 24 * 7}
+      }
+  
+      const sinceMilliseconds = times[selectedSince].call();
+      return Date.now() - sinceMilliseconds;
+    }
+}  
