@@ -3,6 +3,9 @@ var display = document.getElementById("display");
 var storage = window.localStorage;
 
 textInput.value = storage.getItem("text");
+if(storage.getItem("text") != "") {
+    render(textInput.value);
+}
 
 textInput.addEventListener("input", function() {
     // Check for input and render the text that has changed.
@@ -17,6 +20,11 @@ function handle(id) {
 function render(text) {
     try {
         // Renders the given text.
+        if(text == "") {
+            display.style.display = "none";
+        } else {
+            display.style.display = "block";
+        }
         katex.render(text, document.getElementById("display"), {
             displayMode: true,
             macros: {
