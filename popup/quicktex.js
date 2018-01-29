@@ -1,9 +1,10 @@
 var textInput = document.getElementById("entryfield");
 var display = document.getElementById("display");
 var storage = window.localStorage;
+var snippetsButton = document.getElementById("snippets-button");
 
-textInput.value = storage.getItem("text");
-if(storage.getItem("text") != "") {
+textInput.value = storage.getItem("lastSnippetAInternal");
+if(storage.getItem("lastSnippetAInternal") != "") {
     render(textInput.value);
 }
 
@@ -31,8 +32,8 @@ function render(text) {
                 "\\RR": "\\mathbb{R}"
             },
         });
-        storage.setItem("text", text);
-        console.log(storage.getItem("text"));
+        storage.setItem("lastSnippetAInternal", text);
+        console.log(storage.getItem("lastSnippetAInternal"));
     } catch(err) {
         // Display the error message instead of leaving a blank field.
         while(display.lastChild) {
@@ -54,25 +55,47 @@ function render(text) {
 var copyTextareaBtn = document.querySelector('.copy');
 
 copyTextareaBtn.addEventListener('click', function(event) {
-  var copyTextarea = document.querySelector('.copy');
-  textInput.select();
-
-  try {
-    var successful = document.execCommand('copy');
-    var msg = successful ? 'successful' : 'unsuccessful';
-    console.log('Copying text command was ' + msg);
-  } catch (err) {
-    console.log('Oops, unable to copy');
-  }
+    var copyTextarea = document.querySelector('.copy');
+    textInput.select();
+  
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
 });
 
-function forget(storedSettings) {
+snippetsButton.addEventListener('click', function(event) {
+    var snippetName;
+    var snippetCode;
+    if(window.confirm("This is the Snippets Wizzard.\nSnippets can automatically present complicated bits of TeX through our auto-complete system.\nYou can create and delete new snippets using this wizard.")) {
+        var command = window.prompt("Type 'create,' to create a new snippet, 'remove,' to remove a snippet, or press the small x to close this popup.");
+        if(command == "create") {
+            snippetName = prompt("Snippet name? This is what you will type in the input box to toggle the pasting of your snippet.\n No spaces, slashes, or escape chars are allowed.");
+            snippetCode = JSON.stringify(window.prompt("Enter the code for the given snippet (in proper, compatible LaTeX)."));
+            storage.setItem(snippetName, snippetCode);
+            alert("All outstanding snippets: \n" + printAllSnippets());
+        } else if(command == "remove") {
+            prompt("" + printAllSnippets());
+        } else {
+            /*var window = window.self;
+            window.opener = window.self;
+            window.close(); */
+        }
+    }
+});
 
-    /*
-    Convert from a string to a time.
-    The string is one of: "hour", "day", "week", "forever".
-    The time is given in milliseconds since the epoch.
-    */
+function printAllSnippets() {
+    var snippetString;
+    for(var i = 1; i < localStorage.length; i++){
+        snippetString += "\n" + localStorage.key(i) + "  :  " + localStorage.getItem(localStorage.key(i));
+    }
+    return snippetString;
+}
+
+function forget(storedSettings) {
     function getSince(selectedSince) {
       if (selectedSince === "forever") {
         return 0;
@@ -87,4 +110,4 @@ function forget(storedSettings) {
       const sinceMilliseconds = times[selectedSince].call();
       return Date.now() - sinceMilliseconds;
     }
-}  
+}
