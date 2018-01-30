@@ -1,5 +1,5 @@
-var textInput = document.getElementById("entryfield");
 var display = document.getElementById("display");
+var textInput = document.getElementById("entryfield");
 var storage = window.localStorage;
 var snippetsButton = document.getElementById("snippets-button");
 
@@ -68,32 +68,8 @@ copyTextareaBtn.addEventListener('click', function(event) {
 });
 
 snippetsButton.addEventListener('click', function(event) {
-    var snippetName;
-    var snippetCode;
-    if(window.confirm("This is the Snippets Wizzard.\nSnippets can automatically present complicated bits of TeX through our auto-complete system.\nYou can create and delete new snippets using this wizard.")) {
-        var command = window.prompt("Type 'create,' to create a new snippet, 'remove,' to remove a snippet, or press the small x to close this popup.");
-        if(command == "create") {
-            snippetName = prompt("Snippet name? This is what you will type in the input box to toggle the pasting of your snippet.\n No spaces, slashes, or escape chars are allowed.");
-            snippetCode = JSON.stringify(window.prompt("Enter the code for the given snippet (in proper, compatible LaTeX)."));
-            storage.setItem(snippetName, snippetCode);
-            alert("All outstanding snippets: \n" + printAllSnippets());
-        } else if(command == "remove") {
-            prompt("" + printAllSnippets());
-        } else {
-            /*var window = window.self;
-            window.opener = window.self;
-            window.close(); */
-        }
-    }
+    browser.tabs.create({ url: browser.extension.getURL("popup/snippets/index.html") });
 });
-
-function printAllSnippets() {
-    var snippetString;
-    for(var i = 1; i < localStorage.length; i++){
-        snippetString += "\n" + localStorage.key(i) + "  :  " + localStorage.getItem(localStorage.key(i));
-    }
-    return snippetString;
-}
 
 function forget(storedSettings) {
     function getSince(selectedSince) {
