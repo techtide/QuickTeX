@@ -24,6 +24,11 @@ if(confirmation == true) {
 function printAllSnippets() {
     var snippetString;
     for(var i = 1; i < localStorage.length; i++){
+        if(localStorage.key(i) == "lastSnippetAInternal") {
+            continue;
+        } else if(localStorage.key(i) == "undefined") {
+            continue;
+        }
         snippetString += "\n" + localStorage.key(i) + "  :  " + localStorage.getItem(localStorage.key(i));
     }
     return snippetString;

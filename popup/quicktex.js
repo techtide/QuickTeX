@@ -9,10 +9,41 @@ if(storage.getItem("lastSnippetAInternal") != "") {
 }
 
 textInput.addEventListener("input", function() {
-    // Check for input and render the text that has changed.
+    // Check for input and render the text t    hat has changed.
     render(textInput.value);
 });
-    
+
+textInput.onkeydown = function (event) {
+    // This will only function for the tab/auto-complete key.
+    if (event.key == "Tab") {
+        event.preventDefault();
+        while(display.lastChild) {
+            // Remove any text that's already in the display box.
+            display.removeChild(display.lastChild);
+        }
+        var message = document.createTextNode("Auto-complete options:");
+        var span = document.createElement("span");  
+        span.appendChild(message);
+        var menu = document.createElement("table");
+        var iterator = 0;
+        var snippets = [];
+        for(var i in storage.hasOwnProperty(i)) {
+            // Pass in the table argument, and the table() method will fill it.
+            snippets[iterator] = i;
+            table(menu, snippets);
+            iterator += 1;
+        }
+        span.appendChild(menu);
+        span.style.overflow = "hidden";
+        span.style.color = "#800000";
+        span.style.font = "10px Menlo, monospace";
+        display.appendChild(span);
+        span.setAttribute("class", "errorMessage"); 
+    } else {
+        // Do nothing. We only want things for the tab key.
+    }
+};
+
 function handle(id) {
     // Handles the force render button.
     render(textInput.value);
@@ -85,5 +116,15 @@ function forget(storedSettings) {
   
       const sinceMilliseconds = times[selectedSince].call();
       return Date.now() - sinceMilliseconds;
+    }
+}
+
+function table(table, inputs){
+    var tds=table.getElementsByTagName('td');
+    
+    for(var i = 0; i < inputs.length; i++){
+        var newCell = document.createElement("div");
+        newCell.innerHTML = "<p>" + inputs[i] + "</p>";
+        tds.appendChild(newCell);
     }
 }

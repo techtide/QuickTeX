@@ -1,4 +1,4 @@
-textarea {
+#entryfield {
     overflow: auto;
     overflow-wrap: break-word;
     border: 0px;
