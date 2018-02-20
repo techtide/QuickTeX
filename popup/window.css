@@ -16,8 +16,6 @@
 
 #display {
     overflow-wrap: break-word;
-    max-width: 650px;
-    min-width: 450px;
 }
 
 textarea:focus, input:focus{
