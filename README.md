@@ -13,3 +13,5 @@ this is what it [used to look like](https://media.discordapp.net/attachments/406
 join the discord for contributing and talking to me (Khronos#7043) - https://discord.gg/6WhuVTc
 
 feel free to contribute a better readme (please do actually)
+
+oh~ also, make sure to read the license please, before contributing, distributing, etc. you must include a copyright notice stating that the original source was from me, and you must credit me and follow all restrictions outlined there. thanks.-
