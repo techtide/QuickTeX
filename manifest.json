@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "QuickTeX",
-    "version": "1.8",
+    "version": "1.1",
     "description": "Rapidly render LaTeX in the menu bar.",
 
     "icons": {
