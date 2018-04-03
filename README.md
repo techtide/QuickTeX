@@ -5,8 +5,10 @@ Rapidly generate pieces of LaTeX code and preview complex mathematical symbols, 
 ## Features
 - [x] Live preview, as-you-type display of properly formatted and rendered LaTeX code.
 - [x] A lightweight extension with a non-intrusive GUI, available in both the Chrome and Firefox extension stores.
-- [x] Ability to add and remove commonly used experessions, equations, and general pieces of LaTeX code for use in the QuickTeX editor, through the smart Snippet Configuration Wizard. Similar to the auto-complete capabilities given through a programming IDE.
-- [ ] 
+- [x] Ability to add and remove commonly used experessions, equations, and general pieces of LaTeX code for use in the QuickTeX editor, through the smart Snippet Configuration Wizard. 
+- [ ] Abiity to access and automatically enter the auto-complete snippets through the Snippet Configuration Wizard. This is similar to the auto-complete capability that one could get in a programming IDE.
+- [x] Auto-save of LaTeX code and any pieces of code that were previously written in the QuickTeX editor.
+- [ ] A saving system that allows users to more easily take notes and save notes for different sites at the same time. For instance, if one was reading a paper, they would be able to layout their work in LaTeX as they were reading (as if it was paper), and access it the next time they open that specific site or document.
 
 ## Contributing
 
