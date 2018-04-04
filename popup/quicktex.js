@@ -118,13 +118,13 @@ function forget(storedSettings) {
     }
 }
 
-function makeAutocompleteTable() {
+function makeAutocompleteTable(element) {
   let rows = snippets.length;
   let columns = 1;
   var table = "<table>";
   for(var i = 0; i < rows; i ++) {
-    table += "<tr>"+snippets[i]+"<\tr>";
+    table += "<tr id='"+i+'+"><td>"+snippets[i]+"</td></tr>";
   }  
   table += "</table>";
-  return table;
+  document.getElementById("element").innerHTML += table;
 }
