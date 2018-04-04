@@ -7,7 +7,7 @@ if(confirmation == true) {
     if(command == "create") {
         snippetName = prompt("Snippet name? This is what you will type in the input box to toggle the pasting of your snippet.\n No spaces, slashes, or escape chars are allowed.");
         snippetCode = JSON.stringify(prompt("Enter the code for the given snippet (in proper, compatible LaTeX)."));
-        storage.setItem(snippetName.toLowerCase(), snippetCode);
+        storage.setItem("snippet_"+snippetName.toLowerCase(), snippetCode);
         alert("All outstanding snippets: \n" + printAllSnippets());
         document.write("The Snippets Wizard process is over.\n Refresh the page to restart the wizard, or close out of the current tab.");
     } else if(command == "remove") {

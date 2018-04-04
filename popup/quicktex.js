@@ -22,19 +22,22 @@ textInput.onkeydown = function (event) {
             // Remove any text that's already in the display box.
             display.removeChild(display.lastChild);
         }
-        var message = document.createTextNode("Auto-complete options:");
-        var span = document.createElement("span");  
+      var message = document.createElement("p");
+      message.textContent = "Auto-complete options:";
+        message.style.color = "#800000";
+      var span = document.createElement("span");  
         span.appendChild(message);
         var iterator = 0;
-        for(var i in storage.hasOwnProperty(i)) {
+        for(var i in localStorage) {
             // Pass in the table argument, and the table() method will fill it.
+          if(i.includes("snippet_")) {
             snippets[iterator] = i;
-            iterator += 1;
-            
+            iterator +=1;
+          }
         }
+      formACTable(span);      
       // append make table method into here 
         span.style.overflow = "hidden";
-        span.style.color = "#800000";
         span.style.font = "10px Menlo, monospace";
         display.appendChild(span);
         span.setAttribute("class", "errorMessage"); 
@@ -118,13 +121,13 @@ function forget(storedSettings) {
     }
 }
 
-function makeAutocompleteTable(element) {
-  let rows = snippets.length;
-  let columns = 1;
-  var table = "<table>";
-  for(var i = 0; i < rows; i ++) {
-    table += "<tr id='"+i+'+"><td>"+snippets[i]+"</td></tr>";
-  }  
+function formACTable(element) {
+  // This function is in charge of making the auto-complete options table.
+  var table = "<table>";   // This string will hold the HTML code for the table, which will then be appended onto the appropriate element.
+  for(var i = 0; i < snippets.length; i++) {
+    // Form all the rows with the various snippets that we need.
+    table += "<tr><td>" + snippets[i] + "</td></tr>";
+  }
   table += "</table>";
-  document.getElementById("element").innerHTML += table;
+  element.innerHTML += table;
 }
