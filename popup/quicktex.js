@@ -2,6 +2,7 @@ var display = document.getElementById("display");
 var textInput = document.getElementById("entryfield");
 var storage = window.localStorage;
 var snippetsButton = document.getElementById("snippets-button");
+var snippets = [];
 
 textInput.value = storage.getItem("lastSnippetAInternal");
 if(storage.getItem("lastSnippetAInternal") != "") {
@@ -24,16 +25,14 @@ textInput.onkeydown = function (event) {
         var message = document.createTextNode("Auto-complete options:");
         var span = document.createElement("span");  
         span.appendChild(message);
-        var menu = document.createElement("table");
         var iterator = 0;
-        var snippets = [];
         for(var i in storage.hasOwnProperty(i)) {
             // Pass in the table argument, and the table() method will fill it.
             snippets[iterator] = i;
-            table(menu, snippets);
             iterator += 1;
+            
         }
-        span.appendChild(menu);
+      // append make table method into here 
         span.style.overflow = "hidden";
         span.style.color = "#800000";
         span.style.font = "10px Menlo, monospace";
@@ -119,12 +118,13 @@ function forget(storedSettings) {
     }
 }
 
-function table(table, inputs){
-    var tds=table.getElementsByTagName('td');
-    
-    for(var i = 0; i < inputs.length; i++){
-        var newCell = document.createElement("div");
-        newCell.innerHTML = "<p>" + inputs[i] + "</p>";
-        tds.appendChild(newCell);
-    }
+function makeAutocompleteTable() {
+  let rows = snippets.length;
+  let columns = 1;
+  var table = "<table>";
+  for(var i = 0; i < rows; i ++) {
+    table += "<tr>"+snippets[i]+"<\tr>";
+  }  
+  table += "</table>";
+  return table;
 }
