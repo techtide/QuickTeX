@@ -2,7 +2,7 @@ var display = document.getElementById("display");
 var textInput = document.getElementById("entryfield");
 var storage = window.localStorage;
 var snippetsButton = document.getElementById("snippets-button");
-var snippets = ["snippet_devtest"];
+var snippets = [];
 var selectedRow = 0;  // Selected row on the auto-complete table. Corresponds with snippet array index.
 
 textInput.value = storage.getItem("lastSnippetAInternal");

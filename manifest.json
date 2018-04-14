@@ -19,7 +19,7 @@
 
     "permissions": [
       "webRequest",
-      "storage",
-      "tabs"
+      "localStorage",
+      "activeTabs"
     ]
 }
