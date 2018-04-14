@@ -2,7 +2,8 @@ var display = document.getElementById("display");
 var textInput = document.getElementById("entryfield");
 var storage = window.localStorage;
 var snippetsButton = document.getElementById("snippets-button");
-var snippets = [];
+var snippets = ["snippet_devtest"];
+var selectedRow = 0;  // Selected row on the auto-complete table. Corresponds with snippet array index.
 
 textInput.value = storage.getItem("lastSnippetAInternal");
 if(storage.getItem("lastSnippetAInternal") != "") {
@@ -23,11 +24,12 @@ textInput.onkeydown = function (event) {
             display.removeChild(display.lastChild);
         }
       var message = document.createElement("p");
-      message.textContent = "Auto-complete options:";
+      message.textContent = "Auto-complete options (use arrow keys):";
         message.style.color = "#800000";
       var span = document.createElement("span");  
         span.appendChild(message);
-        var iterator = 0;
+      span.id="displaySpan";
+      var iterator = 0;
         for(var i in localStorage) {
             // Pass in the table argument, and the table() method will fill it.
           if(i.includes("snippet_")) {
@@ -41,8 +43,15 @@ textInput.onkeydown = function (event) {
         span.style.font = "10px Menlo, monospace";
         display.appendChild(span);
         span.setAttribute("class", "errorMessage"); 
+    } else if (event.keyCode == '38') {
+      console.log('arrow');
+      selectedRow+=(selectedRow<snippets.length)?1:0;
+      console.log("ac_"+selectedRow);
+      document.getElementById("ac_"+selectedRow).append("↵"); 
+    } else if (event.keyCode == '40') {
+      selectedRow-=(selectedRow<snippets.length+1)?1: 0;
     } else {
-        // Do nothing. We only want things for the tab key.
+      console.log("[warning] no other sub-function key codes recognised");
     }
 };
 
@@ -66,7 +75,6 @@ function render(text) {
             },
         });
         storage.setItem("lastSnippetAInternal", text);
-        console.log(storage.getItem("lastSnippetAInternal"));
     } catch(err) {
         // Display the error message instead of leaving a blank field.
         while(display.lastChild) {
@@ -126,7 +134,7 @@ function formACTable(element) {
   var table = "<table>";   // This string will hold the HTML code for the table, which will then be appended onto the appropriate element.
   for(var i = 0; i < snippets.length; i++) {
     // Form all the rows with the various snippets that we need.
-    table += "<tr><td>" + snippets[i] + "</td></tr>";
+    table += "<tr><td id='ac_'"+ i+ ">" + snippets[i] + "</td></tr>";
   }
   table += "</table>";
   element.innerHTML += table;
