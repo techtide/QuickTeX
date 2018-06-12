@@ -5,6 +5,8 @@ var snippetsButton = document.getElementById("snippets-button");
 var snippets = [];
 var selectedRow = 0;  // Selected row on the auto-complete table. Corresponds with snippet array index.
 
+var selectMode = false;
+
 textInput.value = storage.getItem("lastSnippetAInternal");
 if(storage.getItem("lastSnippetAInternal") != "") {
     render(textInput.value);
@@ -12,7 +14,9 @@ if(storage.getItem("lastSnippetAInternal") != "") {
 
 textInput.addEventListener("input", function() {
     // Check for input and render the text t    hat has changed.
+    if(!selectMode) {
     render(textInput.value);
+    }
 });
 
 textInput.onkeydown = function (event) {
@@ -24,9 +28,9 @@ textInput.onkeydown = function (event) {
             display.removeChild(display.lastChild);
         }
       var message = document.createElement("p");
-      message.textContent = "Auto-complete options (use arrow keys):";
+      message.textContent = "Auto-complete options (use arrow keys, ; to exit):";
         message.style.color = "#800000";
-      var span = document.createElement("span");  
+      var span = document.createElement("span");
         span.appendChild(message);
       span.id="displaySpan";
       var iterator = 0;
@@ -37,19 +41,24 @@ textInput.onkeydown = function (event) {
             iterator +=1;
           }
         }
-      formACTable(span);      
-      // append make table method into here 
+      formACTable(span);
+      selectMode = !selectMode;
+      // append make table method into here
         span.style.overflow = "hidden";
         span.style.font = "10px Menlo, monospace";
         display.appendChild(span);
-        span.setAttribute("class", "errorMessage"); 
+        span.setAttribute("class", "errorMessage");
     } else if (event.keyCode == '38') {
       console.log('arrow');
       selectedRow+=(selectedRow<snippets.length)?1:0;
       console.log("ac_"+selectedRow);
-      document.getElementById("ac_"+selectedRow).append("↵"); 
+      document.getElementById("ac_"+selectedRow).append("↵");
     } else if (event.keyCode == '40') {
       selectedRow-=(selectedRow<snippets.length+1)?1: 0;
+    } else if(selectMode && event.keyCode == ';') {
+        selectRow = 0;
+        selectMode = !selectMode;
+
     } else {
       console.log("[warning] no other sub-function key codes recognised");
     }
@@ -98,7 +107,7 @@ var copyTextareaBtn = document.querySelector('.copy');
 copyTextareaBtn.addEventListener('click', function(event) {
     var copyTextarea = document.querySelector('.copy');
     textInput.select();
-  
+
     try {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
@@ -117,13 +126,13 @@ function forget(storedSettings) {
       if (selectedSince === "forever") {
         return 0;
       }
-  
+
       const times = {
         hour: () => { return 1000 * 60 * 60 },
         day: () => { return 1000 * 60 * 60 * 24 },
         week: () => { return 1000 * 60 * 60 * 24 * 7}
       }
-  
+
       const sinceMilliseconds = times[selectedSince].call();
       return Date.now() - sinceMilliseconds;
     }
@@ -134,7 +143,7 @@ function formACTable(element) {
   var table = "<table>";   // This string will hold the HTML code for the table, which will then be appended onto the appropriate element.
   for(var i = 0; i < snippets.length; i++) {
     // Form all the rows with the various snippets that we need.
-    table += "<tr><td id='ac_'"+ i+ ">" + snippets[i] + "</td></tr>";
+    table += "<tr><td id='ac_'"+i+">" + i + ": " + snippets[i] + "</td></tr>";
   }
   table += "</table>";
   element.innerHTML += table;
