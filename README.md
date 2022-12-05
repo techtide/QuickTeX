@@ -11,14 +11,11 @@ Rapidly generate pieces of LaTeX code and preview complex mathematical symbols, 
 - [ ] Ability to access and automatically enter the auto-complete snippets through the Snippet Configuration Wizard. This is similar to the auto-complete capability that one could get in a programming IDE.
 
 ## Contributing
-Anyone is free to contribute; in fact, you are encouraged to contribute! In the, 'Issues,' tab of this repository, you can see a list of tasks - if you're a beginner, some issues may have the ``good_first_commit`` tag, and will be relatively easy to help you get contributing to open-source software. I also have a [Discord server](https://discord.gg/6WhuVTc) for some of my personal projects, including QuickTeX, so be sure to check that out.
+Anyone is free to contribute; in fact, you are encouraged to contribute! In the, 'Issues,' tab of this repository, you can see a list of tasks - if you're a beginner, some issues may have the ``good_first_commit`` tag, and will be relatively easy to help you get contributing to open-source software.
 
 My workflow on this project, if you'd like to follow it, is simply working in Vim, and using Mozilla's handy Web-Ext command (which can be installed through the Node Package Manager) to run ``web-ext run``. This opens a new web browser with the latest version of the software.
-
-## Contact
-As mentioned earlier in the section about contributions, the best way to contact me is through [Discord](https://discord.gg/6WhuVTc). If you would like to donate to this project, I've setup a [Patreon](https://www.patreon.com/khr).
 
 ## License
 The full contents of the license is available in the LICENSE.txt file. Be sure to follow every condition of the license and thoroughly read it before modifying, copying, and/or distributing this code (which is not permitted without thorough accreditation and the release of all source code attributed with the distribution or modification). 
 
-This project was created by me (Arman B.), and likewise will continually be maintained by me.
+This project was created by me (Arman Bhalla), and likewise will continually be maintained by me.
